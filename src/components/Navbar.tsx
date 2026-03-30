@@ -33,70 +33,72 @@ export default function Navbar() {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "navbar-scrolled" : ""
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            className="flex items-center gap-3 group"
-          >
-            <Logo />
-            <div>
-              <span className="font-heading font-bold text-lg tracking-tight">
-                STATUS P-E
-              </span>
-              <span className="hidden sm:block text-[10px] uppercase tracking-[0.2em] text-steel-400 -mt-1">
-                Precision Engineering
-              </span>
-            </div>
-          </a>
-
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollTo(link.href);
-                }}
-                className="text-sm text-steel-300 hover:text-white transition-colors font-medium"
-              >
-                {link.label}
-              </a>
-            ))}
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled ? "navbar-scrolled" : ""
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
             <a
-              href="#contact"
+              href="#"
               onClick={(e) => {
                 e.preventDefault();
-                scrollTo("#contact");
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="btn-shine ml-4 px-6 py-2.5 bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold rounded-lg transition-colors"
+              className="flex items-center gap-3 group"
             >
-              Get a Quote
+              <Logo />
+              <div>
+                <span className="font-heading font-bold text-lg tracking-tight">
+                  STATUS P-E
+                </span>
+                <span className="hidden sm:block text-[10px] uppercase tracking-[0.2em] text-steel-400 -mt-1">
+                  Precision Engineering
+                </span>
+              </div>
             </a>
+
+            <div className="hidden lg:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollTo(link.href);
+                  }}
+                  className="text-sm text-steel-300 hover:text-white transition-colors font-medium"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo("#contact");
+                }}
+                className="btn-shine ml-4 px-6 py-2.5 bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold rounded-lg transition-colors"
+              >
+                Get a Quote
+              </a>
+            </div>
+
+            <button
+              className="lg:hidden p-2 text-steel-300 hover:text-white"
+              onClick={() => setMenuOpen(true)}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
-
-          <button
-            className="lg:hidden p-2 text-steel-300 hover:text-white"
-            onClick={() => setMenuOpen(true)}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Backdrop */}
+      {/* Mobile Backdrop — outside nav to avoid backdrop-filter containing block */}
       {menuOpen && (
         <div
           className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm lg:hidden"
@@ -104,7 +106,7 @@ export default function Navbar() {
         />
       )}
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — outside nav to avoid backdrop-filter containing block */}
       <div
         className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-steel-900 z-[70] p-8 lg:hidden transition-transform duration-300 ease-out ${
           menuOpen ? "translate-x-0" : "translate-x-full"
@@ -144,6 +146,6 @@ export default function Navbar() {
           </a>
         </div>
       </div>
-    </nav>
+    </>
   );
 }
