@@ -31,7 +31,7 @@ src/
     ├── CtaBanner.tsx      # Call-to-action banner
     ├── Contact.tsx        # Contact info & enquiry form
     ├── Footer.tsx         # Site footer
-    ├── Logo.tsx           # SVG logo component
+    ├── Logo.tsx           # Company logo (PNG image)
     ├── ScrollAnimator.tsx # Intersection Observer scroll animations
     └── WhatsAppFloat.tsx  # Floating WhatsApp button (bottom-right)
 ```
@@ -60,6 +60,19 @@ src/
 - Tapping the backdrop closes the menu
 - Body scroll lock when menu is open
 - Capped at `85vw` width on small screens
+- Mobile menu drawer and backdrop rendered outside `<nav>` to avoid `backdrop-filter` creating a containing block (which would collapse the fixed drawer to the nav's 80px height)
+- Sections with scroll animations (`fade-right`, `fade-left`) use `overflow-x-hidden` to prevent horizontal overflow from expanding the mobile viewport
+
+### CNC Milling Description
+- Updated to: "Precised CNC Milling process to achieve complex geometries and tight tolerances. Suitable for both low quantity R&D or high volume production."
+
+### Logo & Favicon
+- Logo component (`Logo.tsx`) renders the official company PNG (`public/images/logo-full.png`) — includes the S icon and "STATUS P-E PTE LTD" text
+- Navbar and Footer use the logo image directly (no separate text labels)
+- Favicon (`src/app/favicon.ico`), `icon.png` (192x192), and `apple-icon.png` (180x180) are generated from the circle S icon (`public/images/logo.png`)
+
+### Footer
+- Contact items (address, mobile, email) include inline SVG icons for visual clarity
 
 ## Assets
 
@@ -79,6 +92,8 @@ All images are stored locally in `public/images/`.
 | Laser Cutting | `public/images/services/laser-cutting.jpg` | [Unsplash](https://unsplash.com/photos/photo-1689961476752-cc6cc3a02f86) |
 | Sheet Metal Bending | `public/images/services/sheet-metal-bending.jpg` | [Unsplash](https://unsplash.com/photos/photo-1758873263527-ca53b938fbd4) |
 | Surface Treatment | `public/images/services/surface-treatment.jpg` | [Unsplash](https://unsplash.com/photos/photo-1731317734838-12da6c9a6139) |
+| Logo (full with text) | `public/images/logo-full.png` | Company asset |
+| Logo (circle icon) | `public/images/logo.png` | Company asset |
 
 ## Deployment
 

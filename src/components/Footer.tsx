@@ -6,12 +6,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-5">
+            <div className="mb-5">
               <Logo />
-              <div>
-                <span className="font-heading font-bold text-lg tracking-tight">STATUS P-E</span>
-                <span className="block text-[10px] uppercase tracking-[0.2em] text-steel-400 -mt-1">Pte Ltd</span>
-              </div>
             </div>
             <p className="text-steel-400 text-sm leading-relaxed mb-6">
               Your one-stop precision engineering partner in Singapore. Delivering manufacturing excellence since 2005.

@@ -50,14 +50,6 @@ export default function Navbar() {
               className="flex items-center gap-3 group"
             >
               <Logo />
-              <div>
-                <span className="font-heading font-bold text-lg tracking-tight">
-                  STATUS P-E
-                </span>
-                <span className="hidden sm:block text-[10px] uppercase tracking-[0.2em] text-steel-400 -mt-1">
-                  Precision Engineering
-                </span>
-              </div>
             </a>
 
             <div className="hidden lg:flex items-center gap-8">

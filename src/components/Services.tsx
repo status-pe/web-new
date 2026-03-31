@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 const services = [
-  { title: "CNC Milling", desc: "High-precision 3, 4 & 5-axis CNC milling for complex geometries and tight tolerances.", img: "https://images.unsplash.com/photo-1689942007817-679c21614b25?w=600&q=80" },
+  { title: "CNC Milling", desc: "Precised CNC Milling process to achieve complex geometries and tight tolerances. Suitable for both low quantity R&D or high volume production.", img: "https://images.unsplash.com/photo-1689942007817-679c21614b25?w=600&q=80" },
   { title: "CNC Turning", desc: "Precision lathe operations for cylindrical components with exceptional surface finish.", img: "https://images.unsplash.com/photo-1666634157070-6fd830fb5672?w=600&q=80" },
   { title: "Precision Grinding", desc: "Ultra-fine surface grinding for components requiring micron-level accuracy.", img: "https://images.unsplash.com/photo-1739206509849-016cb3112196?w=600&q=80" },
   { title: "Wire Cutting", desc: "Wire EDM cutting for intricate profiles and hardened materials with superior edge quality.", img: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80" },
