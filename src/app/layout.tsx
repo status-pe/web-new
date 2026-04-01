@@ -84,7 +84,7 @@ export default function RootLayout({
                 "Your one-stop precision engineering solutions partner in Singapore. CNC Milling, Turning, Grinding, Wire Cutting, Waterjet, Laser Cutting, Sheet Metal Bending and Surface Treatment.",
               url: "https://www.statuspe.com.sg",
               telephone: "+6597373178",
-              email: "damien.ang@statuspe.com.sg",
+              email: "admin@statuspe.com.sg",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Blk 9010, Tampines Street 93, #01-137",

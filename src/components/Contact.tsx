@@ -1,4 +1,41 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Contact() {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = {
+      name: formData.get("name") as string,
+      company: formData.get("company") as string,
+      email: formData.get("email") as string,
+      phone: formData.get("phone") as string,
+      service: formData.get("service") as string,
+      details: formData.get("details") as string,
+    };
+
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) throw new Error();
+      setStatus("sent");
+      form.reset();
+    } catch {
+      setStatus("error");
+    }
+  }
+
   return (
     <section id="contact" className="relative py-24 lg:py-32 bg-steel-900 overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,24 +69,24 @@ export default function Contact() {
                 icon={<path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />}
                 title="Email"
               >
-                <a href="mailto:damien.ang@statuspe.com.sg" className="text-steel-400 text-sm hover:text-brand-400 transition-colors">damien.ang@statuspe.com.sg</a>
+                <a href="mailto:admin@statuspe.com.sg" className="text-steel-400 text-sm hover:text-brand-400 transition-colors">admin@statuspe.com.sg</a>
               </ContactItem>
             </div>
           </div>
 
           <div className="animate-on-scroll fade-right">
-            <form className="bg-steel-800/50 rounded-2xl p-8 border border-steel-700/50 space-y-6">
+            <form onSubmit={handleSubmit} className="bg-steel-800/50 rounded-2xl p-8 border border-steel-700/50 space-y-6">
               <div className="grid sm:grid-cols-2 gap-6">
-                <FormField label="Full Name" type="text" placeholder="Your name" />
-                <FormField label="Company" type="text" placeholder="Company name" />
+                <FormField name="name" label="Full Name" type="text" placeholder="Your name" />
+                <FormField name="company" label="Company" type="text" placeholder="Company name" />
               </div>
               <div className="grid sm:grid-cols-2 gap-6">
-                <FormField label="Email" type="email" placeholder="you@company.com" />
-                <FormField label="Phone" type="tel" placeholder="+65" />
+                <FormField name="email" label="Email" type="email" placeholder="you@company.com" />
+                <FormField name="phone" label="Phone" type="tel" placeholder="+65" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-steel-300 mb-2">Service Required</label>
-                <select className="w-full px-4 py-3 bg-steel-900 border border-steel-700 rounded-lg text-steel-400 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors text-sm">
+                <select name="service" className="w-full px-4 py-3 bg-steel-900 border border-steel-700 rounded-lg text-steel-400 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors text-sm">
                   <option value="">Select a service</option>
                   {["CNC Milling", "CNC Turning", "Precision Grinding", "Wire Cutting", "Waterjet Cutting", "Laser Cutting", "Sheet Metal Bending", "Surface Treatment", "Prototyping", "Reverse Engineering", "Engineering Consultation", "Other"].map((s) => (
                     <option key={s}>{s}</option>
@@ -58,11 +95,21 @@ export default function Contact() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-steel-300 mb-2">Project Details</label>
-                <textarea rows={4} placeholder="Describe your project requirements, materials, tolerances, and quantities..." className="w-full px-4 py-3 bg-steel-900 border border-steel-700 rounded-lg text-white placeholder-steel-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors text-sm resize-none" />
+                <textarea name="details" rows={4} placeholder="Describe your project requirements, materials, tolerances, and quantities..." className="w-full px-4 py-3 bg-steel-900 border border-steel-700 rounded-lg text-white placeholder-steel-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors text-sm resize-none" />
               </div>
-              <button type="submit" className="btn-shine w-full py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-all text-sm">
-                Send Enquiry
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="btn-shine w-full py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg transition-all text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {status === "sending" ? "Sending..." : status === "sent" ? "Enquiry Sent!" : "Send Enquiry"}
               </button>
+              {status === "sent" && (
+                <p className="text-green-400 text-sm text-center">Thank you! We&apos;ll get back to you shortly.</p>
+              )}
+              {status === "error" && (
+                <p className="text-red-400 text-sm text-center">Something went wrong. Please try again or email us directly.</p>
+              )}
             </form>
           </div>
         </div>
@@ -85,11 +132,11 @@ function ContactItem({ icon, title, children }: { icon: React.ReactNode; title: 
   );
 }
 
-function FormField({ label, type, placeholder }: { label: string; type: string; placeholder: string }) {
+function FormField({ name, label, type, placeholder }: { name: string; label: string; type: string; placeholder: string }) {
   return (
     <div>
       <label className="block text-sm font-medium text-steel-300 mb-2">{label}</label>
-      <input type={type} placeholder={placeholder} className="w-full px-4 py-3 bg-steel-900 border border-steel-700 rounded-lg text-white placeholder-steel-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors text-sm" />
+      <input name={name} type={type} placeholder={placeholder} className="w-full px-4 py-3 bg-steel-900 border border-steel-700 rounded-lg text-white placeholder-steel-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors text-sm" />
     </div>
   );
 }

@@ -18,9 +18,14 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 ```
 src/
 ├── app/
-│   ├── layout.tsx        # Root layout with SEO metadata & JSON-LD
-│   ├── page.tsx          # Home page (assembles all sections)
-│   └── globals.css       # Theme, animations, custom styles
+│   ├── api/
+│   │   └── enquiry/
+│   │       └── route.ts      # POST endpoint — sends enquiry email via Resend
+│   ├── layout.tsx            # Root layout with SEO metadata & JSON-LD
+│   ├── page.tsx              # Home page (assembles all sections)
+│   └── globals.css           # Theme, animations, custom styles
+├── lib/
+│   └── email-template.ts     # HTML email template builder for enquiry notifications
 └── components/
     ├── Navbar.tsx         # Fixed navbar with mobile hamburger menu
     ├── Hero.tsx           # Hero banner with stats
@@ -29,12 +34,24 @@ src/
     ├── Capabilities.tsx   # Capability highlights
     ├── Process.tsx        # Process steps
     ├── CtaBanner.tsx      # Call-to-action banner
-    ├── Contact.tsx        # Contact info & enquiry form
+    ├── Contact.tsx        # Contact info & enquiry form (submits to /api/enquiry)
     ├── Footer.tsx         # Site footer
     ├── Logo.tsx           # Company logo (PNG image)
     ├── ScrollAnimator.tsx # Intersection Observer scroll animations
     └── WhatsAppFloat.tsx  # Floating WhatsApp button (bottom-right)
 ```
+
+## Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```
+RESEND_API_KEY=your_resend_api_key_here
+```
+
+| Variable | Description |
+|---|---|
+| `RESEND_API_KEY` | API key from [Resend](https://resend.com/api-keys) for sending enquiry emails |
 
 ## Features
 
@@ -70,6 +87,17 @@ src/
 - Logo component (`Logo.tsx`) renders the official company PNG (`public/images/logo-full.png`) — includes the S icon and "STATUS P-E PTE LTD" text
 - Navbar and Footer use the logo image directly (no separate text labels)
 - Favicon (`src/app/favicon.ico`), `icon.png` (192x192), and `apple-icon.png` (180x180) are generated from the circle S icon (`public/images/logo.png`)
+
+### Enquiry Form & Email (Resend)
+- Contact form submits to `/api/enquiry` API route
+- On submission, two emails are sent simultaneously via [Resend](https://resend.com):
+  1. **Admin notification** → `admin@statuspe.com.sg` with full enquiry details (Name, Company, Email, Phone, Service, Project Details), "Reply to" CTA button, and sign-off from Admin
+  2. **Enquirer acknowledgement** → sent to the enquirer's email confirming receipt, showing their enquiry summary (Service & Details), expected 1–2 business day response time, and direct contact info (Phone, Email, WhatsApp)
+- Both emails share consistent branding: company logo header with dark gradient, blue accent bar, clean typography, and company footer
+- Form shows sending/sent/error states with user feedback
+- Admin email failure returns an error; acknowledgement email failure is logged but does not fail the request
+- Email templates source: `src/lib/email-template.ts` (`buildEnquiryEmail` + `buildAcknowledgementEmail`)
+- API route: `src/app/api/enquiry/route.ts`
 
 ### Footer
 - Contact items (address, mobile, email) include inline SVG icons for visual clarity

@@ -15,13 +15,13 @@ export default function About() {
             </div>
             <div className="space-y-5 animate-on-scroll fade-up">
               <p className="text-steel-300 leading-relaxed text-lg">
-                At our core, we are a <strong className="text-white">precision engineering partner</strong> committed to bridge the gap between complex designs and high-performance reality. Specializing in <strong className="text-white">CNC Milling</strong>, we provide a comprehensive range of technical services as a one-stop solution.
+                At our core, we are a precision engineering partner committed to bridge the gap between complex designs and high-performance reality. Specializing in CNC Milling, we provide a comprehensive range of technical services as a one-stop solution.
               </p>
               <p className="text-steel-300 leading-relaxed">
                 We pride ourselves on being a versatile resource for our clients, offering specialized support in <strong className="text-white">Prototyping, Reverse Engineering, and Engineering Consultation</strong>. Whether you are starting with a rough concept or need to recreate an existing component, our experienced team provides robust solutions tailored to your specific requirements.
               </p>
               <p className="text-steel-300 leading-relaxed">
-                From meticulous <strong className="text-white">Testing and Assembly</strong> to final delivery, we ensure every product meets the highest standards of precision and functionality.
+                From meticulous Testing and Assembly to final delivery, we ensure every product meets the highest standards of precision and functionality.
               </p>
             </div>
           </div>
