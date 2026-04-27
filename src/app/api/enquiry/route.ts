@@ -20,14 +20,14 @@ export async function POST(request: Request) {
 
     const [adminResult, ackResult] = await Promise.all([
       resend.emails.send({
-        from: "Status P-E <noreply@statuspe.com.sg>",
+        from: "Status P-E <contact@statuspe.com.sg>",
         to: ["admin@statuspe.com.sg"],
         replyTo: email,
         subject: `New Enquiry: ${service} — ${company || name}`,
         html: buildEnquiryEmail(enquiryData),
       }),
       resend.emails.send({
-        from: "Status P-E <noreply@statuspe.com.sg>",
+        from: "Status P-E <contact@statuspe.com.sg>",
         to: [email],
         replyTo: "admin@statuspe.com.sg",
         subject: `We've Received Your Enquiry — Status P-E Pte Ltd`,
