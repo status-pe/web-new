@@ -44,7 +44,7 @@ export default function Footer() {
         </div>
 
         <div className="py-6 border-t border-steel-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-steel-500 text-xs">&copy; 2026 Status P-E Pte Ltd. All rights reserved. UEN: 200507456W</p>
+          <p className="text-steel-500 text-xs">&copy; 2026 Status P-E Pte Ltd. All rights reserved. UEN: 200507456W | Powered By <a href="https://www.betawerkz.com.sg" target="_blank" rel="noopener noreferrer" className="hover:text-brand-400 transition-colors">Beta Werkz Pte Ltd</a></p>
           <div className="flex items-center gap-6">
             <a href="#" className="text-steel-500 hover:text-brand-400 text-xs transition-colors">Privacy Policy</a>
             <a href="#" className="text-steel-500 hover:text-brand-400 text-xs transition-colors">Terms of Service</a>
